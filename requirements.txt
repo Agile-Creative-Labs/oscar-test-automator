@@ -1,17 +1,45 @@
-# OSCAR Test Automator Dependencies
+# ──────────────────────────────────────────────────────────────
+# OSCAR Test Automator – Runtime dependencies
+# Install with: pip install -r requirements.txt
+# ──────────────────────────────────────────────────────────────
+
 # Selenium for browser automation
 selenium>=4.15.0
 
-# WebDriver managers for automatic driver installation
+# WebDriver managers (auto-install Chrome/Firefox/Edge drivers)
 webdriver-manager>=4.0.1
 
-# Progress bars and colored output
+# Progress bars & coloured console output
 tqdm>=4.66.0
 colorama>=0.4.6
 colorlog>=6.7.0
 
-# Optional but recommended
-certifi>=2023.7.22  # For HTTPS support
+# HTTPS support (optional but recommended)
+certifi>=2023.7.22
 
-# Optional: For better CLI experience
+# Better CLI experience (optional)
 click>=8.1.7
+
+
+# ──────────────────────────────────────────────────────────────
+# Test-only dependencies
+# Install with: pip install -r test-requirements.txt
+# (or pip install -r requirements.txt[tests] if you use extras)
+# ──────────────────────────────────────────────────────────────
+
+# Core testing framework
+pytest>=7.4.0
+pytest-cov>=4.1.0          # coverage reporting
+pytest-mock>=3.11.0        # convenient pytest mocker
+
+# Mocking utilities (already pulled in by pytest-mock, kept for clarity)
+mock>=5.1.0
+
+# Code quality / linting
+pylint>=2.17.0
+black>=23.7.0
+flake8>=6.1.0
+
+# Optional test reporting
+pytest-html>=3.2.0
+pytest-json-report>=1.5.0
