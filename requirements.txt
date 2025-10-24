@@ -1,0 +1,14 @@
+# OSCAR Test Automator Dependencies
+
+# Selenium for browser automation
+selenium>=4.15.0
+
+# WebDriver managers for automatic driver installation
+webdriver-manager>=4.0.1
+
+# Progress bars and colored output
+tqdm>=4.66.0
+colorama>=0.4.6
+
+# Optional but recommended
+certifi>=2023.7.22  # For HTTPS support
