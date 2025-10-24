@@ -21,7 +21,7 @@ Usage:
     python test_automator.py --duration 30
     
     # Specific category testing
-    python test_automator.py --category Development --duration 15
+    python test_automator.py --categories Development --duration 15
     
     # Multiple categories
     python test_automator.py --categories "Development,Social Media" --duration 20
@@ -49,7 +49,6 @@ import json
 import logging
 import sys
 import time
-import random
 from pathlib import Path
 from datetime import datetime
 from browser_controller import BrowserController
@@ -77,11 +76,33 @@ class OSCARTestAutomator:
         Args:
             config_path: Path to configuration JSON file
         """
-        self.config_loader = ConfigLoader(config_path)
+        #self.config = self._load_config(config_path)
+        self.config_loader = ConfigLoader(config_path)  # ← Use ConfigLoader
         self.visit_results = []
         self.start_time = None
         self.end_time = None
         
+    def _load_config(self, config_path):
+        """Load configuration from JSON file"""
+        try:
+            config_file = Path(config_path)
+            if not config_file.exists():
+                logger.error(f"Config file not found: {config_path}")
+                sys.exit(1)
+            
+            with open(config_file, 'r') as f:
+                config = json.load(f)
+            
+            logger.info(f"Loaded config from {config_path}")
+            return config
+        
+        except json.JSONDecodeError as e:
+            logger.error(f"Invalid JSON in config file: {e}")
+            sys.exit(1)
+        except Exception as e:
+            logger.error(f"Error loading config: {e}")
+            sys.exit(1)
+    
     def _parse_duration(self, duration_str):
         """
         Parse duration string to seconds
@@ -92,7 +113,7 @@ class OSCARTestAutomator:
         Returns:
             int: Duration in seconds
         """
-        duration_str = str(duration_str).lower().strip()
+        duration_str = duration_str.lower().strip()
         
         try:
             if duration_str.endswith('m'):
@@ -105,363 +126,207 @@ class OSCARTestAutomator:
                 # Assume minutes if no unit
                 return int(duration_str) * 60
         except ValueError:
-            logger.error(f"Invalid duration format: {duration_str}")
+            logger.error(f"Invalid duration: {duration_str}")
             sys.exit(1)
+
+    def _get_sites(self, categories=None, sample=None):
+        """Get sites, optionally filtered and sampled"""
+        if categories:
+            cats = [c.strip() for c in categories.split(',')]
+            sites = []
+            for cat in cats:
+                sites.extend([(url, cat) for url in self.config_loader.get_sites_by_category(cat)])
+        else:
+            sites = self.config_loader.get_all_sites()
+
+        if sample and sample > 0:
+            import random
+            sites = random.sample(sites, min(sample, len(sites)))
+
+        logger.info(f"Selected {len(sites)} sites for testing")
+        return sites
     
-    def _get_sites_to_test(self, categories=None, sample_size=None):
+    def _get_sites_for_category(self, category=None):
         """
-        Get list of sites to test
+        Get list of sites, optionally filtered by category
         
         Args:
-            categories: List of category names to test (optional)
-            sample_size: Random sample size (optional)
+            category: Category to filter by (optional)
             
         Returns:
-            list: List of (url, category) tuples
+            list: List of site dictionaries
         """
-        if categories:
-            # Get sites from specific categories
-            sites = []
-            for category in categories:
-                category_sites = self.config_loader.get_sites_by_category(category)
-                sites.extend([(url, category) for url in category_sites])
+        if category:
+            # Filter sites by category
+            filtered_sites = []
+            for cat in self.config.get('categories', []):
+                if cat['name'].lower() == category.lower():
+                    filtered_sites = cat['sites']
+                    logger.info(f"Testing category '{category}' with {len(filtered_sites)} sites")
+                    break
             
-            if not sites:
-                logger.warning(f"No sites found for categories {categories}, using all sites")
-                sites = self.config_loader.get_all_sites()
+            if not filtered_sites:
+                logger.warning(f"Category '{category}' not found in config, using all sites")
+                return self._flatten_all_sites()
+            
+            return filtered_sites
         else:
-            # Get all sites
-            sites = self.config_loader.get_all_sites()
-        
+            # Use all sites from all categories
+            return self._flatten_all_sites()
+    
+    def _flatten_all_sites(self):
+        """Get all sites from all categories"""
+        all_sites = []
+        for category in self.config.get('categories', []):
+            all_sites.extend(category['sites'])
+        logger.info(f"Using all sites: {len(all_sites)} total")
+        return all_sites
+    
+    def run(self, args):
+        logger.info("=" * 60)
+        logger.info("OSCAR Test Automator Starting")
+        logger.info("=" * 60)
+
+        total_duration = self._parse_duration(args.duration)
+        min_time = self._parse_duration(args.min_time)
+        max_time = self._parse_duration(args.max_time)
+        sites = self._get_sites(args.categories, args.sample)
+
         if not sites:
             logger.error("No sites to test!")
             sys.exit(1)
-        
-        # Apply random sampling if requested
-        if sample_size and sample_size < len(sites):
-            logger.info(f"Randomly sampling {sample_size} sites from {len(sites)} total")
-            sites = random.sample(sites, sample_size)
-        
-        logger.info(f"Testing {len(sites)} sites")
-        return sites
-    
-    def run(self, args):
-        """
-        Main execution method
-        
-        Args:
-            args: Parsed command line arguments
-        """
-        logger.info("="*60)
-        logger.info("OSCAR Test Automator Starting")
-        logger.info("="*60)
-        
-        # Parse durations
-        total_duration = self._parse_duration(args.duration)
-        min_visit_duration = self._parse_duration(args.min_time)
-        max_visit_duration = self._parse_duration(args.max_time)
-        
-        # Parse categories
-        categories = None
-        if args.categories:
-            categories = [cat.strip() for cat in args.categories.split(',')]
-        
-        # Get sites to test
-        sites = self._get_sites_to_test(categories, args.sample)
-        
-        # Log test parameters
+
         logger.info(f"Browser: {args.browser}")
         logger.info(f"Headless: {args.headless}")
-        logger.info(f"Simulate Behavior: {args.simulate_behavior}")
-        logger.info(f"Total Duration: {total_duration}s ({total_duration/60:.1f}m)")
-        logger.info(f"Visit Duration per Site: {min_visit_duration}-{max_visit_duration}s")
-        logger.info(f"Sites to Test: {len(sites)}")
-        
-        # Show category breakdown
-        category_counts = {}
-        for url, category in sites:
-            category_counts[category] = category_counts.get(category, 0) + 1
-        
-        logger.info("\nCategory Breakdown:")
-        for category, count in sorted(category_counts.items()):
-            logger.info(f"  {category}: {count} sites")
-        
-        logger.info("="*60)
-        
-        # Initialize browser
-        browser = BrowserController(
+        logger.info(f"Total Duration: {total_duration}s (~{total_duration//60}m)")
+        logger.info(f"Per-site time: {min_time}s – {max_time}s")
+        logger.info(f"Sites: {len(sites)}")
+        logger.info("=" * 60)
+
+        with BrowserController(
             browser_name=args.browser,
             headless=args.headless,
             simulate_behavior=args.simulate_behavior
-        )
-        
-        if not browser.start():
-            logger.error("Failed to start browser. Exiting.")
-            sys.exit(1)
-        
-        # Track timing
-        self.start_time = time.time()
-        end_time = self.start_time + total_duration
-        
-        try:
+        ) as browser:
+
+            if not browser.start():
+                logger.error("Failed to start browser")
+                sys.exit(1)
+
+            self.start_time = time.time()
+            end_time = self.start_time + total_duration
             cycle = 1
-            site_index = 0
-            
-            while time.time() < end_time:
-                logger.info(f"\n--- Cycle {cycle} ---")
-                
-                # Visit sites in sequence
-                while site_index < len(sites) and time.time() < end_time:
-                    url, category = sites[site_index]
-                    
-                    # Calculate remaining time
-                    remaining_time = end_time - time.time()
-                    
-                    # Randomize visit duration within min/max range
-                    visit_duration = random.uniform(min_visit_duration, max_visit_duration)
-                    actual_visit_duration = min(visit_duration, remaining_time)
-                    
-                    if actual_visit_duration <= 5:  # Minimum 5 seconds to make visit worthwhile
-                        logger.info("Insufficient time remaining. Stopping.")
-                        break
-                    
-                    # Record visit start
-                    visit_start = time.time()
-                    
-                    # Navigate to the site
-                    success = browser.navigate_to(url)
-                    
-                    if success:
-                        # Get page title
-                        page_title = browser.get_page_title()
-                        
-                        # Simulate user activity for remaining duration
-                        navigation_time = time.time() - visit_start
-                        remaining_activity_time = actual_visit_duration - navigation_time
-                        
-                        if remaining_activity_time > 0:
-                            browser.simulate_user_activity(remaining_activity_time)
-                        
-                        # Record result
-                        total_duration_actual = time.time() - visit_start
-                        
-                        result = {
-                            'status': 'success',
-                            'url': url,
+
+            try:
+                while time.time() < end_time:
+                    logger.info(f"\n--- Cycle {cycle} ---")
+                    for url, category in sites:
+                        if time.time() >= end_time:
+                            break
+                        visit_time = random.randint(min_time, max_time)
+                        remaining = end_time - time.time()
+                        visit_time = min(visit_time, remaining)
+                        if visit_time <= 0:
+                            break
+
+                        result = browser.visit_site(url, visit_time)
+                        result.update({
                             'category': category,
-                            'page_title': page_title,
-                            'duration': total_duration_actual,
                             'cycle': cycle,
                             'timestamp': datetime.now().isoformat()
-                        }
-                        
-                        logger.info(f"✓ {url} ({category}): {total_duration_actual:.1f}s")
-                    else:
-                        result = {
-                            'status': 'failed',
-                            'url': url,
-                            'category': category,
-                            'page_title': '',
-                            'duration': time.time() - visit_start,
-                            'cycle': cycle,
-                            'timestamp': datetime.now().isoformat(),
-                            'error': 'Navigation failed'
-                        }
-                        
-                        logger.warning(f"✗ {url} ({category}): Navigation failed")
-                    
-                    self.visit_results.append(result)
-                    site_index += 1
-                
-                # Reset for next cycle if time remains
-                if time.time() < end_time and site_index >= len(sites):
-                    site_index = 0
+                        })
+                        self.visit_results.append(result)
+
+                        if result['status'] == 'success':
+                            logger.info(f"Success: {url} [{category}] {result['duration']:.1f}s")
+                        else:
+                            logger.warning(f"Failed: {url} {result.get('error')}")
+
                     cycle += 1
-                else:
-                    break
-        
-        except KeyboardInterrupt:
-            logger.info("\n\nTest interrupted by user (Ctrl+C)")
-        
-        finally:
-            # Clean up
-            self.end_time = time.time()
-            browser.stop()
-            
-            # Generate summary
-            self._generate_summary()
-    
+
+            except KeyboardInterrupt:
+                logger.info("Interrupted by user")
+
+            finally:
+                self.end_time = time.time()
+                self._generate_csv()
+                self._generate_summary()
+
+    def _generate_csv(self):
+        if not self.visit_results:
+            return
+        filename = f"data/logs/test_activity_{datetime.now():%Y%m%d_%H%M%S}.csv"
+        Path(filename).parent.mkdir(parents=True, exist_ok=True)
+        with open(filename, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(['timestamp', 'url', 'category', 'title', 'duration', 'status'])
+            for r in self.visit_results:
+                writer.writerow([r['timestamp'], r['url'], r['category'], r['title'], r['duration'], r['status']])
+        logger.info(f"CSV saved: {filename}")
+
     def _generate_summary(self):
-        """Generate and log test summary"""
         logger.info("\n" + "="*60)
         logger.info("TEST SUMMARY")
         logger.info("="*60)
-        
         total_time = self.end_time - self.start_time
         total_visits = len(self.visit_results)
-        successful_visits = sum(1 for r in self.visit_results if r['status'] == 'success')
-        failed_visits = total_visits - successful_visits
-        
-        logger.info(f"Total Runtime: {total_time:.1f}s ({total_time/60:.1f}m)")
-        logger.info(f"Total Site Visits: {total_visits}")
-        logger.info(f"Successful Visits: {successful_visits}")
-        logger.info(f"Failed Visits: {failed_visits}")
-        
-        if successful_visits > 0:
-            avg_duration = sum(r['duration'] for r in self.visit_results if r['status'] == 'success') / successful_visits
-            logger.info(f"Average Visit Duration: {avg_duration:.1f}s")
-        
-        # Category breakdown
-        category_stats = {}
-        for result in self.visit_results:
-            cat = result['category']
-            if cat not in category_stats:
-                category_stats[cat] = {'total': 0, 'success': 0, 'failed': 0}
-            
-            category_stats[cat]['total'] += 1
-            if result['status'] == 'success':
-                category_stats[cat]['success'] += 1
-            else:
-                category_stats[cat]['failed'] += 1
-        
-        logger.info("\nCategory Statistics:")
-        for category, stats in sorted(category_stats.items()):
-            logger.info(f"  {category}: {stats['success']}/{stats['total']} successful")
-        
-        if failed_visits > 0:
-            logger.info("\nFailed Sites:")
-            for result in self.visit_results:
-                if result['status'] != 'success':
-                    logger.info(f"  - {result['url']} ({result['category']}): {result.get('error', 'Unknown')}")
-        
-        # Save detailed results to JSON
-        results_file = f"oscar_results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        successful = sum(1 for r in self.visit_results if r['status'] == 'success')
+        failed = total_visits - successful
+
+        logger.info(f"Runtime: {total_time:.1f}s ({total_time/60:.1f}m)")
+        logger.info(f"Visits: {total_visits} (Success: {successful}, Failed: {failed})")
+
+        if failed:
+            logger.info("\nFailed URLs:")
+            for r in self.visit_results:
+                if r['status'] != 'success':
+                    logger.info(f"  - {r['url']}: {r.get('error')}")
+
+        # Save JSON
+        json_file = f"oscar_results_{datetime.now():%Y%m%d_%H%M%S}.json"
         try:
-            with open(results_file, 'w') as f:
+            with open(json_file, 'w') as f:
                 json.dump({
                     'summary': {
                         'total_runtime': total_time,
                         'total_visits': total_visits,
-                        'successful_visits': successful_visits,
-                        'failed_visits': failed_visits,
-                        'start_time': datetime.fromtimestamp(self.start_time).isoformat(),
-                        'end_time': datetime.fromtimestamp(self.end_time).isoformat()
+                        'successful_visits': successful,
+                        'failed_visits': failed
                     },
                     'visits': self.visit_results
                 }, f, indent=2)
-            
-            logger.info(f"\nDetailed results saved to: {results_file}")
+            logger.info(f"JSON results: {json_file}")
         except Exception as e:
-            logger.error(f"Failed to save results: {e}")
-        
+            logger.error(f"Failed to save JSON: {e}")
+
         logger.info("="*60)
 
-
 def parse_arguments():
-    """Parse command line arguments"""
     parser = argparse.ArgumentParser(
-        description='OSCAR Test Automator - Automated browser testing for OSCAR productivity tracker',
+        description='OSCAR Test Automator',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Basic usage (30 minutes)
-  python test_automator.py --duration 30
-  
-  # Specific category testing
-  python test_automator.py --categories Development --duration 15
-  
-  # Multiple categories
-  python test_automator.py --categories "Development,Social Media" --duration 20
-  
-  # Random sampling (visit 50 sites)
-  python test_automator.py --sample 50 --duration 30
-  
-  # Custom time per site
-  python test_automator.py --min-time 60 --max-time 180 --duration 30
-  
-  # Headless mode with behavior simulation
-  python test_automator.py --headless --simulate-behavior --duration 60
-  
-  # Different browser
-  python test_automator.py --browser firefox --duration 30
+  python test_automator.py --duration 10m --headless --sample 5
+  python test_automator.py --categories "Social Media,Development" --min-time 30 --max-time 90
         """
     )
-    
-    parser.add_argument(
-        '--config',
-        type=str,
-        default='default_config.json',
-        help='Path to config JSON file (default: default_config.json)'
-    )
-    
-    parser.add_argument(
-        '--duration',
-        type=str,
-        default='30',
-        help='Total test duration in minutes (e.g., 30, 60) or with unit (30m, 1h, 3600s) (default: 30)'
-    )
-    
-    parser.add_argument(
-        '--min-time',
-        type=str,
-        default='30',
-        help='Minimum seconds to spend on each site (default: 30)'
-    )
-    
-    parser.add_argument(
-        '--max-time',
-        type=str,
-        default='120',
-        help='Maximum seconds to spend on each site (default: 120)'
-    )
-    
-    parser.add_argument(
-        '--browser',
-        type=str,
-        choices=['chrome', 'firefox', 'edge', 'safari'],
-        default='chrome',
-        help='Browser to use for testing (default: chrome)'
-    )
-    
-    parser.add_argument(
-        '--headless',
-        action='store_true',
-        help='Run browser in headless mode (no visible window)'
-    )
-    
-    parser.add_argument(
-        '--simulate-behavior',
-        action='store_true',
-        help='Enable simple user behavior simulation (scrolling, pauses)'
-    )
-    
-    parser.add_argument(
-        '--categories',
-        type=str,
-        default=None,
-        help='Test only sites from specific categories (comma-separated, e.g., "Development,Social Media")'
-    )
-    
-    parser.add_argument(
-        '--sample',
-        type=int,
-        default=None,
-        help='Randomly sample N sites from the selected categories'
-    )
-    
+    parser.add_argument('--config', default='config/default_config.json', help='Config path')
+    parser.add_argument('--duration', default='30m', help='Total duration (e.g. 30m, 1h)')
+    parser.add_argument('--min-time', default='60', help='Min seconds per site')
+    parser.add_argument('--max-time', default='180', help='Max seconds per site')
+    parser.add_argument('--browser', choices=['chrome', 'firefox', 'edge', 'safari'], default='chrome')
+    parser.add_argument('--headless', action='store_true')
+    parser.add_argument('--simulate-behavior', action='store_true')
+    parser.add_argument('--categories', help='Comma-separated categories')
+    parser.add_argument('--sample', type=int, help='Randomly sample N sites')
     return parser.parse_args()
 
 
 def main():
-    """Main entry point"""
     args = parse_arguments()
-    
-    try:
-        automator = OSCARTestAutomator(config_path=args.config)
-        automator.run(args)
-    except Exception as e:
-        logger.error(f"Fatal error: {e}", exc_info=True)
-        sys.exit(1)
+    automator = OSCARTestAutomator(config_path=args.config)
+    automator.run(args)
 
 
 if __name__ == '__main__':
