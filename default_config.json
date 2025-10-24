@@ -2,61 +2,32 @@
     "browser_categories": {
         "Social Media": [
             "twitter.com",
-            "facebook.com",
-            "linkedin.com",
-            "instagram.com",
-            "reddit.com",
-            "discord.com",
-            "tiktok.com"
+            "facebook.com"
+           
         ],
         "Entertainment/Media": [
             "youtube.com",
-            "netflix.com",
-            "spotify.com",
-            "twitch.tv",
-            "amazon.com",
-            "hulu.com"
+            "netflix.com"
         ],
         "News/Information": [
             "bbc.com",
-            "cnn.com",
-            "nytimes.com",
-            "reuters.com",
-            "theguardian.com",
-            "ap.org",
-            "npr.org"
+            "cnn.com"
         ],
         "Development": [
             "github.com",
-            "stackoverflow.com",
-            "python.org",
-            "angular.io",
-            "nodejs.org",
-            "developer.mozilla.org",
-            "docs.python.org"
+            "stackoverflow.com"
         ],
         "Communication": [
             "gmail.com",
-            "outlook.com",
-            "slack.com",
-            "teams.microsoft.com",
-            "zoom.us",
-            "asana.com",
-            "trello.com"
+            "outlook.com"
         ],
         "Shopping": [
             "amazon.com",
-            "ebay.com",
-            "etsy.com",
-            "walmart.com",
-            "target.com"
+            "ebay.com"
         ],
         "Education": [
             "coursera.org",
-            "udemy.com",
-            "khanacademy.org",
-            "edx.org",
-            "linkedin.com/learning"
+            "udemy.com"
         ],
         "Finance": [
             "paypal.com",
