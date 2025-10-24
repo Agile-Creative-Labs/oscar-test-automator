@@ -1,0 +1,118 @@
+{
+    "browser_categories": {
+        "Social Media": [
+            "twitter.com",
+            "facebook.com",
+            "linkedin.com",
+            "instagram.com",
+            "reddit.com",
+            "discord.com",
+            "tiktok.com"
+        ],
+        "Entertainment/Media": [
+            "youtube.com",
+            "netflix.com",
+            "spotify.com",
+            "twitch.tv",
+            "amazon.com",
+            "hulu.com"
+        ],
+        "News/Information": [
+            "bbc.com",
+            "cnn.com",
+            "nytimes.com",
+            "reuters.com",
+            "theguardian.com",
+            "ap.org",
+            "npr.org"
+        ],
+        "Development": [
+            "github.com",
+            "stackoverflow.com",
+            "python.org",
+            "angular.io",
+            "nodejs.org",
+            "developer.mozilla.org",
+            "docs.python.org"
+        ],
+        "Communication": [
+            "gmail.com",
+            "outlook.com",
+            "slack.com",
+            "teams.microsoft.com",
+            "zoom.us",
+            "asana.com",
+            "trello.com"
+        ],
+        "Shopping": [
+            "amazon.com",
+            "ebay.com",
+            "etsy.com",
+            "walmart.com",
+            "target.com"
+        ],
+        "Education": [
+            "coursera.org",
+            "udemy.com",
+            "khanacademy.org",
+            "edx.org",
+            "linkedin.com/learning"
+        ],
+        "Finance": [
+            "paypal.com",
+            "chase.com",
+            "mint.com",
+            "robinhood.com"
+        ],
+        "Others": [
+            "wikipedia.org",
+            "maps.google.com",
+            "weather.com"
+        ]
+    },
+    "app_categories": {
+        "Web Browsers": [
+            "chrome", "firefox", "arc", "safari", "edge", "brave", "opera"
+        ],
+        "Social": [
+            "messenger", "whatsapp", "telegram", "viber", "messages", "discord","teams", "zoom"
+        ],
+        "Streaming/Media": [
+            "spotify", "netflix", "prime video", "youtube", "twitch", "soundcloud","vlc"
+        ],
+        "Productivity": [
+            "1password",
+            "adobe",
+            "alfred",
+            "notion",
+            "evernote"
+        ],
+        "Utilities": [
+            "activity monitor",
+            "archive utility",
+            "calculator"
+        ],
+        "System/Security": [
+            "coreaudiod",
+            "loginwindow",
+            "screensaver"
+        ],
+        "Others": []
+    },
+    "work_schedule": {
+        "work_days": [0, 1, 2, 3, 4],
+        "start_hour": 8,
+        "end_hour": 18,
+        "timezone": "UTC"
+    },
+    "feature_weights": {
+        "domain_weight": 1.0,
+        "app_weight": 1.0,
+        "time_weight": 0.5
+    },
+    "model_settings": {
+        "n_estimators": 100,
+        "random_state": 42,
+        "max_depth": null
+    }
+}
