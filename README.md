@@ -70,8 +70,12 @@ Your `config/default_config.json` should have this structure:
     }
 }
 ```
-
-## Usage
+### Notes
+Ensure that you have the correct directory structure
+```
+mkdir -p config data/logs
+cp default_config.json config/
+```
 
 ### Basic Examples
 
@@ -81,6 +85,9 @@ python test_automator.py --duration 30
 
 # Run for 1 hour in headless mode
 python test_automator.py --duration 1h --headless
+
+# Run for 5 minutes with 10 sample in headless mode
+python test_automator.py --duration 5m --headless --sample 10
 
 # Test specific categories
 python test_automator.py --categories "Development,Social Media" --duration 15
