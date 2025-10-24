@@ -64,9 +64,6 @@ from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
@@ -83,47 +80,47 @@ class BrowserController:
     RETRY_DELAY = 8  # seconds
     PAGE_LOAD_TIMEOUT = 30  # seconds
     
-    def __init__(self, browser_type='chrome', headless=False, simulate_behavior=False):
+    def __init__(self, browser_name='chrome', headless=False, simulate_behavior=False):
         """
         Initialize browser controller
         
         Args:
-            browser_type: Browser to use (chrome, firefox, edge, safari)
+            browser_name: Browser to use (chrome, firefox, edge, safari)
             headless: Run browser in headless mode
             simulate_behavior: Enable simple user behavior simulation
         """
-        self.browser_type = browser_type.lower()
+        self.browser_name = browser_name.lower()
         self.headless = headless
         self.simulate_behavior = simulate_behavior
         self.driver = None
         
-        if self.browser_type not in self.SUPPORTED_BROWSERS:
-            raise ValueError(f"Unsupported browser: {browser_type}. Choose from {self.SUPPORTED_BROWSERS}")
+        if self.browser_name not in self.SUPPORTED_BROWSERS:
+            raise ValueError(f"Unsupported browser: {browser_name}. Choose from {self.SUPPORTED_BROWSERS}")
         
-        if self.headless and self.browser_type == 'safari':
+        if self.headless and self.browser_name == 'safari':
             logger.warning("Safari does not support headless mode. Running in normal mode.")
             self.headless = False
         
-        logger.info(f"Initializing {self.browser_type} browser (headless={self.headless}, simulate_behavior={self.simulate_behavior})")
+        logger.info(f"Initializing {self.browser_name} browser (headless={self.headless}, simulate_behavior={self.simulate_behavior})")
     
     def start(self):
         """Start the browser instance"""
         try:
-            if self.browser_type == 'chrome':
+            if self.browser_name == 'chrome':
                 self.driver = self._start_chrome()
-            elif self.browser_type == 'firefox':
+            elif self.browser_name == 'firefox':
                 self.driver = self._start_firefox()
-            elif self.browser_type == 'edge':
+            elif self.browser_name == 'edge':
                 self.driver = self._start_edge()
-            elif self.browser_type == 'safari':
+            elif self.browser_name == 'safari':
                 self.driver = self._start_safari()
             
             self.driver.set_page_load_timeout(self.PAGE_LOAD_TIMEOUT)
-            logger.info(f"{self.browser_type.capitalize()} browser started successfully")
+            logger.info(f"{self.browser_name.capitalize()} browser started successfully")
             return True
         
         except Exception as e:
-            logger.error(f"Failed to start {self.browser_type} browser: {e}")
+            logger.error(f"Failed to start {self.browser_name} browser: {e}")
             return False
     
     def _start_chrome(self):
@@ -166,58 +163,36 @@ class BrowserController:
         # Safari driver comes pre-installed on macOS, no webdriver-manager needed
         return webdriver.Safari()
     
-    def visit_site(self, url, duration_seconds):
+    def navigate_to(self, url):
         """
-        Visit a website and stay for specified duration
+        Navigate to a URL with retry logic
         
         Args:
             url: Website URL to visit
-            duration_seconds: How long to stay on the site
             
         Returns:
-            dict: Visit result with status, duration, and any errors
+            bool: True if navigation successful, False otherwise
         """
         if not self.driver:
-            return {
-                'url': url,
-                'status': 'error',
-                'error': 'Browser not started',
-                'duration': 0
-            }
+            logger.error("Browser not started")
+            return False
         
         # Ensure URL has protocol
         if not url.startswith(('http://', 'https://')):
             url = f'https://{url}'
         
-        logger.info(f"Visiting {url} for {duration_seconds}s")
+        logger.info(f"Navigating to {url}")
         
         # Try loading the page with retries
         for attempt in range(self.MAX_RETRIES + 1):
             try:
-                start_time = time.time()
                 self.driver.get(url)
                 
-                # Wait for page to be somewhat loaded
-                WebDriverWait(self.driver, 10).until(
-                    lambda d: d.execute_script('return document.readyState') == 'complete'
-                )
+                # Wait for page to be loaded
+                self.driver.execute_script('return document.readyState') == 'complete'
                 
                 logger.info(f"Successfully loaded {url}")
-                
-                # Simulate user behavior if enabled
-                if self.simulate_behavior:
-                    self._simulate_user_behavior(duration_seconds)
-                else:
-                    time.sleep(duration_seconds)
-                
-                elapsed = time.time() - start_time
-                
-                return {
-                    'url': url,
-                    'status': 'success',
-                    'duration': elapsed,
-                    'attempts': attempt + 1
-                }
+                return True
             
             except TimeoutException:
                 logger.warning(f"Timeout loading {url} (attempt {attempt + 1}/{self.MAX_RETRIES + 1})")
@@ -225,13 +200,8 @@ class BrowserController:
                     logger.info(f"Retrying in {self.RETRY_DELAY} seconds...")
                     time.sleep(self.RETRY_DELAY)
                 else:
-                    return {
-                        'url': url,
-                        'status': 'timeout',
-                        'error': 'Page load timeout after retries',
-                        'duration': 0,
-                        'attempts': attempt + 1
-                    }
+                    logger.error(f"Failed to load {url} after {self.MAX_RETRIES + 1} attempts")
+                    return False
             
             except WebDriverException as e:
                 logger.error(f"WebDriver error on {url} (attempt {attempt + 1}/{self.MAX_RETRIES + 1}): {e}")
@@ -239,31 +209,42 @@ class BrowserController:
                     logger.info(f"Retrying in {self.RETRY_DELAY} seconds...")
                     time.sleep(self.RETRY_DELAY)
                 else:
-                    return {
-                        'url': url,
-                        'status': 'error',
-                        'error': str(e),
-                        'duration': 0,
-                        'attempts': attempt + 1
-                    }
+                    return False
             
             except Exception as e:
                 logger.error(f"Unexpected error visiting {url}: {e}")
-                return {
-                    'url': url,
-                    'status': 'error',
-                    'error': str(e),
-                    'duration': 0,
-                    'attempts': attempt + 1
-                }
+                return False
+        
+        return False
     
-    def _simulate_user_behavior(self, duration_seconds):
+    def get_page_title(self):
+        """
+        Get the title of the current page
+        
+        Returns:
+            str: Page title or empty string if not available
+        """
+        if not self.driver:
+            return ""
+        
+        try:
+            return self.driver.title
+        except Exception as e:
+            logger.debug(f"Could not get page title: {e}")
+            return ""
+    
+    def simulate_user_activity(self, duration_seconds):
         """
         Simulate simple user behavior (scrolling, small pauses)
         
         Args:
             duration_seconds: Total time to simulate behavior
         """
+        if not self.simulate_behavior:
+            # Just wait passively
+            time.sleep(duration_seconds)
+            return
+        
         end_time = time.time() + duration_seconds
         
         try:
@@ -309,7 +290,7 @@ class BrowserController:
         if self.driver:
             try:
                 self.driver.quit()
-                logger.info(f"{self.browser_type.capitalize()} browser closed")
+                logger.info(f"{self.browser_name.capitalize()} browser closed")
             except Exception as e:
                 logger.error(f"Error closing browser: {e}")
             finally:
