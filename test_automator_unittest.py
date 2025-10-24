@@ -2,6 +2,24 @@
 Unit tests for OSCAR Test Automator
 Tests for test_automator.py, config_loader.py, and browser_controller.py
 
+# Install pytest (recommended)
+pip install pytest pytest-cov
+
+# Run all tests with verbose output
+python -m pytest test_automator_unittest.py -v
+
+# Run with coverage report
+python -m pytest test_automator_unittest.py --cov=. --cov-report=html
+
+# Or use unittest
+python -m unittest test_automator_unittest.py -v
+
+# Run specific test class
+python -m pytest test_automator_unittest.py::TestConfigLoader -v
+
+# Run specific test
+python -m pytest test_automator_unittest.py::TestBrowserController::test_navigate_retry_logic -v
+
 Run with: 
     python -m pytest test_automator_unittest.py -v
     or
