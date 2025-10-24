@@ -89,6 +89,9 @@ python test_automator.py --duration 1h --headless
 # Run for 5 minutes with 10 sample in headless mode
 python test_automator.py --duration 5m --headless --sample 10
 
+# Run for 5 minutes with 10 sample in headless mode and categories
+python test_automator.py --duration 5m --headless --sample 3 --categories "Social Media"
+
 # Test specific categories
 python test_automator.py --categories "Development,Social Media" --duration 15
 
