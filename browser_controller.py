@@ -31,7 +31,7 @@ Usage Example
     logging.basicConfig(level=logging.INFO)
 
     with BrowserController(
-        browser_type='chrome',
+        browser_name='chrome',
         headless=True,
         simulate_behavior=True
     ) as browser:
@@ -51,7 +51,7 @@ Design Philosophy
 - Be explicit: ``start()`` and ``stop()`` over magic init
 
 Author: Agile Creative Labs (c) 2025
-Version: 2.0.0
+Version: 2.1.0
 License: MIT
 """
 import time
@@ -80,7 +80,7 @@ class BrowserController:
     RETRY_DELAY = 8  # seconds
     PAGE_LOAD_TIMEOUT = 30  # seconds
     
-    def __init__(self, browser_name='chrome', headless=False, simulate_behavior=False):
+    def __init__(self, browser_name='chrome', headless=False, simulate_behavior=False, browser_type=None):
         """
         Initialize browser controller
         
@@ -88,7 +88,12 @@ class BrowserController:
             browser_name: Browser to use (chrome, firefox, edge, safari)
             headless: Run browser in headless mode
             simulate_behavior: Enable simple user behavior simulation
+            browser_type: Alias for browser_name (for backward compatibility)
         """
+        # Support both browser_name and browser_type parameters
+        if browser_type:
+            browser_name = browser_type
+            
         self.browser_name = browser_name.lower()
         self.headless = headless
         self.simulate_behavior = simulate_behavior
@@ -284,6 +289,56 @@ class BrowserController:
             remaining = end_time - time.time()
             if remaining > 0:
                 time.sleep(remaining)
+    
+    def visit_site(self, url, duration_seconds=30):
+        """
+        Visit a site and stay for specified duration (high-level API)
+        
+        Args:
+            url: Website URL to visit
+            duration_seconds: Time to spend on the site
+            
+        Returns:
+            dict: Visit result with status, duration, attempts, etc.
+        """
+        start_time = time.time()
+        result = {
+            'url': url,
+            'status': 'failed',
+            'duration': 0,
+            'attempts': 0,
+            'error': None
+        }
+        
+        try:
+            # Navigate to the site
+            success = self.navigate_to(url)
+            result['attempts'] = 1
+            
+            if success:
+                # Get page title
+                result['page_title'] = self.get_page_title()
+                
+                # Calculate time spent on navigation
+                navigation_time = time.time() - start_time
+                remaining_time = duration_seconds - navigation_time
+                
+                # Simulate user activity for remaining time
+                if remaining_time > 0:
+                    self.simulate_user_activity(remaining_time)
+                
+                result['status'] = 'success'
+                result['duration'] = time.time() - start_time
+            else:
+                result['error'] = 'Navigation failed'
+                result['duration'] = time.time() - start_time
+        
+        except Exception as e:
+            result['error'] = str(e)
+            result['duration'] = time.time() - start_time
+            logger.error(f"Error visiting {url}: {e}")
+        
+        return result
     
     def stop(self):
         """Stop and close the browser"""
