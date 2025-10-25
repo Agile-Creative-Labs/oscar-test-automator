@@ -1,0 +1,24 @@
+{
+  "summary": {
+    "platform": "Windows",
+    "start_time": "2025-10-24T17:53:02.522591",
+    "end_time": "2025-10-24T17:58:40.658521",
+    "total_runtime_seconds": 338.13592982292175,
+    "total_visits": 1,
+    "successful_visits": 1,
+    "failed_visits": 0,
+    "success_rate": 100.0
+  },
+  "visits": [
+    {
+      "url": "app.friendster.com",
+      "status": "success",
+      "duration": 132.38,
+      "title": "Friendster",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T17:55:14.922698"
+    }
+  ]
+}

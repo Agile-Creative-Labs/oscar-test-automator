@@ -1,0 +1,97 @@
+2025-10-24 18:10:49,942 - config_loader - INFO - Loaded 8 browser categories
+2025-10-24 18:10:49,963 - __main__ - INFO - Running on Windows (Windows-10-10.0.26200-SP0)
+2025-10-24 18:10:49,963 - __main__ - INFO - ================================================================================
+2025-10-24 18:10:49,964 - __main__ - INFO - OSCAR Test Automator Starting
+2025-10-24 18:10:49,964 - __main__ - INFO - ================================================================================
+2025-10-24 18:10:49,964 - config_loader - INFO - Total testable sites: 190
+2025-10-24 18:10:49,966 - __main__ - INFO - Selected 190 sites for testing
+2025-10-24 18:10:49,966 - __main__ - INFO - Platform: Windows
+2025-10-24 18:10:49,966 - __main__ - INFO - Browser: chrome
+2025-10-24 18:10:49,967 - __main__ - INFO - Headless: True
+2025-10-24 18:10:49,967 - __main__ - INFO - Simulate Behavior: False
+2025-10-24 18:10:49,967 - __main__ - INFO - Total Duration: 30m 0s (1800s)
+2025-10-24 18:10:49,969 - __main__ - INFO - Per-site time: 60s – 180s (avg: 120s)
+2025-10-24 18:10:49,971 - __main__ - INFO - Sites in rotation: 190
+2025-10-24 18:10:49,972 - __main__ - INFO - Estimated visits: ~2850
+2025-10-24 18:10:49,972 - __main__ - INFO - Estimated completion: 2025-10-24 18:40:49
+2025-10-24 18:10:49,972 - __main__ - INFO - ================================================================================
+2025-10-24 18:10:49,972 - browser_controller - INFO - Initializing chrome browser on Windows (headless=True, simulate_behavior=False)
+2025-10-24 18:10:49,973 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 18:10:55,042 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 18:10:55,121 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 18:10:55,186 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 18:10:56,736 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 18:10:56,737 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 18:11:01,809 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 18:11:01,877 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 18:11:01,938 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 18:11:03,360 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 18:11:03,384 - __main__ - INFO - 
+============================================================
+2025-10-24 18:11:03,387 - __main__ - INFO - Cycle 1 - Sites: 190
+2025-10-24 18:11:03,388 - __main__ - INFO - ============================================================
+2025-10-24 18:11:03,390 - browser_controller - INFO - Navigating to https://app.friendster.com
+2025-10-24 18:11:03,955 - browser_controller - INFO - Successfully loaded https://app.friendster.com
+2025-10-24 18:13:56,179 - __main__ - INFO - [OK] app.friendster.com [Social Media] 172.8s | Title: Friendster
+2025-10-24 18:13:56,181 - browser_controller - INFO - Navigating to https://discord.com
+2025-10-24 18:13:58,538 - browser_controller - INFO - Successfully loaded https://discord.com
+2025-10-24 18:16:39,423 - __main__ - INFO - [OK] discord.com [Social Media] 163.2s | Title: Discord - Group Chat That’s All Fun & Ga
+2025-10-24 18:16:39,424 - browser_controller - INFO - Navigating to https://facebook.com
+2025-10-24 18:16:40,299 - browser_controller - INFO - Successfully loaded https://facebook.com
+2025-10-24 18:19:27,356 - __main__ - INFO - [OK] facebook.com [Social Media] 167.9s | Title: Facebook - log in or sign up
+2025-10-24 18:19:27,358 - browser_controller - INFO - Navigating to https://friendster.com
+2025-10-24 18:19:28,650 - browser_controller - INFO - Successfully loaded https://friendster.com
+2025-10-24 18:20:33,399 - __main__ - INFO - [OK] friendster.com [Social Media] 66.0s | Title: Friendster
+2025-10-24 18:20:33,401 - browser_controller - INFO - Navigating to https://instagram.com
+2025-10-24 18:20:34,438 - browser_controller - INFO - Successfully loaded https://instagram.com
+2025-10-24 18:23:24,465 - __main__ - INFO - [OK] instagram.com [Social Media] 171.1s | Title: Instagram
+2025-10-24 18:23:24,466 - browser_controller - INFO - Navigating to https://linkedin.com
+2025-10-24 18:23:26,083 - browser_controller - INFO - Successfully loaded https://linkedin.com
+2025-10-24 18:24:38,916 - __main__ - INFO - [OK] linkedin.com [Social Media] 74.5s | Title: LinkedIn: Log In or Sign Up
+2025-10-24 18:24:38,917 - browser_controller - INFO - Navigating to https://mastodon.social
+2025-10-24 18:24:39,999 - browser_controller - INFO - Successfully loaded https://mastodon.social
+2025-10-24 18:26:54,549 - __main__ - INFO - [OK] mastodon.social [Social Media] 135.6s | Title: Trending - Mastodon
+2025-10-24 18:26:54,550 - browser_controller - INFO - Navigating to https://messenger.com
+2025-10-24 18:26:55,448 - browser_controller - INFO - Successfully loaded https://messenger.com
+2025-10-24 18:29:29,298 - __main__ - INFO - [OK] messenger.com [Social Media] 154.8s | Title: Messenger
+2025-10-24 18:29:29,298 - browser_controller - INFO - Navigating to https://myspace.com
+2025-10-24 18:29:29,901 - browser_controller - INFO - Successfully loaded https://myspace.com
+2025-10-24 18:32:01,637 - __main__ - INFO - [OK] myspace.com [Social Media] 152.3s | Title: Myspace
+2025-10-24 18:32:01,639 - browser_controller - INFO - Navigating to https://pinaydb.org
+2025-10-24 18:32:02,443 - browser_controller - INFO - Successfully loaded https://pinaydb.org
+2025-10-24 18:33:55,646 - __main__ - INFO - [OK] pinaydb.org [Social Media] 114.0s | Title: Just a moment...
+2025-10-24 18:33:55,648 - browser_controller - INFO - Navigating to https://pinterest.com
+2025-10-24 18:33:57,130 - browser_controller - INFO - Successfully loaded https://pinterest.com
+2025-10-24 18:36:59,367 - __main__ - INFO - [OK] pinterest.com [Social Media] 183.7s | Title: Pinterest
+2025-10-24 18:36:59,368 - browser_controller - INFO - Navigating to https://reddit.com
+2025-10-24 18:36:59,724 - browser_controller - INFO - Successfully loaded https://reddit.com
+2025-10-24 18:38:13,598 - __main__ - INFO - [OK] reddit.com [Social Media] 74.2s | Title: 
+2025-10-24 18:38:13,598 - browser_controller - INFO - Navigating to https://roblox.com
+2025-10-24 18:38:15,987 - browser_controller - INFO - Successfully loaded https://roblox.com
+2025-10-24 18:39:34,862 - __main__ - INFO - [OK] roblox.com [Social Media] 81.3s | Title: Roblox
+2025-10-24 18:39:34,864 - browser_controller - INFO - Navigating to https://snapchat.com
+2025-10-24 18:39:35,952 - browser_controller - INFO - Successfully loaded https://snapchat.com
+2025-10-24 18:40:49,842 - __main__ - INFO - [OK] snapchat.com [Social Media] 75.0s | Title: Snapchat - Say It In A Snap
+2025-10-24 18:40:49,845 - browser_controller - INFO - Navigating to https://threads.net
+2025-10-24 18:40:50,912 - browser_controller - INFO - Successfully loaded https://threads.net
+2025-10-24 18:41:04,092 - __main__ - INFO - [OK] threads.net [Social Media] 14.2s | Title: Threads
+2025-10-24 18:41:04,094 - __main__ - INFO - ✓ CSV saved: data/logs/test_activity_20251024_184104.csv
+2025-10-24 18:41:04,094 - __main__ - INFO - 
+================================================================================
+2025-10-24 18:41:04,094 - __main__ - INFO - TEST SUMMARY
+2025-10-24 18:41:04,094 - __main__ - INFO - ================================================================================
+2025-10-24 18:41:04,095 - __main__ - INFO - Platform: Windows
+2025-10-24 18:41:04,095 - __main__ - INFO - Runtime: 30m 0s (1800.7s)
+2025-10-24 18:41:04,095 - __main__ - INFO - Start: 2025-10-24 18:11:03
+2025-10-24 18:41:04,095 - __main__ - INFO - End: 2025-10-24 18:41:04
+2025-10-24 18:41:04,095 - __main__ - INFO - 
+Total Visits: 15
+2025-10-24 18:41:04,095 - __main__ - INFO -   [OK] Successful: 15 (100.0%)
+2025-10-24 18:41:04,095 - __main__ - INFO -   [FAIL] Failed: 0 (0.0%)
+2025-10-24 18:41:04,096 - __main__ - INFO - 
+Category Breakdown:
+2025-10-24 18:41:04,096 - __main__ - INFO -   Social Media: 15 visits
+2025-10-24 18:41:04,097 - __main__ - INFO - 
+[OK] JSON results saved: oscar_results_20251024_184104.json
+2025-10-24 18:41:04,098 - __main__ - INFO - ================================================================================
+2025-10-24 18:41:07,013 - browser_controller - INFO - Chrome browser closed

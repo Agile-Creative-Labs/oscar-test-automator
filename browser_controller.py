@@ -20,6 +20,8 @@ Features
 - Headless mode with browser-specific flags and Safari fallback
 - Clean separation of concerns with private helper methods
 - Full docstrings and type hints for IDE support and maintainability
+- Cross-platform support (Windows, macOS, Linux)
+- Visual progress bars with tqdm
 
 Usage Example
 -------------
@@ -51,12 +53,13 @@ Design Philosophy
 - Be explicit: ``start()`` and ``stop()`` over magic init
 
 Author: Agile Creative Labs (c) 2025
-Version: 2.0.0
+Version: 2.1.0
 License: MIT
 """
 import time
 import random
 import logging
+import platform
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -68,6 +71,7 @@ from selenium.common.exceptions import TimeoutException, WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -79,7 +83,7 @@ class BrowserController:
     RETRY_DELAY = 8  # seconds
     PAGE_LOAD_TIMEOUT = 30  # seconds
     
-    def __init__(self, browser_name='chrome', headless=False, simulate_behavior=False):
+    def __init__(self, browser_name='chrome', headless=False, simulate_behavior=False, show_progress=True):
         """
         Initialize browser controller
         
@@ -87,20 +91,27 @@ class BrowserController:
             browser_name: Browser to use (chrome, firefox, edge, safari)
             headless: Run browser in headless mode
             simulate_behavior: Enable simple user behavior simulation
+            show_progress: Show progress bars during waits
         """
         self.browser_name = browser_name.lower()
         self.headless = headless
         self.simulate_behavior = simulate_behavior
+        self.show_progress = show_progress
         self.driver = None
+        self.platform = platform.system()
         
         if self.browser_name not in self.SUPPORTED_BROWSERS:
             raise ValueError(f"Unsupported browser: {browser_name}. Choose from {self.SUPPORTED_BROWSERS}")
+        
+        # Platform-specific browser checks
+        if self.browser_name == 'safari' and self.platform != 'Darwin':
+            raise ValueError(f"Safari is only available on macOS. Current platform: {self.platform}")
         
         if self.headless and self.browser_name == 'safari':
             logger.warning("Safari does not support headless mode. Running in normal mode.")
             self.headless = False
         
-        logger.info(f"Initializing {self.browser_name} browser (headless={self.headless}, simulate_behavior={self.simulate_behavior})")
+        logger.info(f"Initializing {self.browser_name} browser on {self.platform} (headless={self.headless}, simulate_behavior={self.simulate_behavior})")
     
     def start(self):
         """Start the browser instance"""
@@ -232,16 +243,22 @@ class BrowserController:
             logger.debug(f"Could not get page title: {e}")
             return ""
     
-    def simulate_user_activity(self, duration_seconds):
+    def simulate_user_activity(self, duration_seconds, url_display=""):
         """
-        Simulate simple user behavior (scrolling, small pauses)
+        Simulate simple user behavior (scrolling, small pauses) with progress bar
         
         Args:
             duration_seconds: Total time to simulate behavior
+            url_display: URL to display in progress bar
         """
         if not self.simulate_behavior:
-            # Just wait passively
-            time.sleep(duration_seconds)
+            # Just wait passively with progress bar
+            if self.show_progress:
+                desc = f"Waiting on site" if not url_display else f"On: {url_display[:50]}"
+                for _ in tqdm(range(duration_seconds), desc=desc, unit="s", ncols=100, leave=False):
+                    time.sleep(1)
+            else:
+                time.sleep(duration_seconds)
             return
         
         end_time = time.time() + duration_seconds
@@ -253,6 +270,14 @@ class BrowserController:
             
             scroll_count = 0
             max_scrolls = 5
+            
+            # Progress bar for behavior simulation
+            if self.show_progress:
+                desc = f"Simulating activity" if not url_display else f"Active: {url_display[:50]}"
+                pbar = tqdm(total=duration_seconds, desc=desc, unit="s", ncols=100, leave=False)
+            
+            start_time = time.time()
+            last_update = start_time
             
             while time.time() < end_time and scroll_count < max_scrolls:
                 # Random scroll distance (10-40% of viewport)
@@ -267,7 +292,21 @@ class BrowserController:
                 
                 # Random pause between scrolls (2-5 seconds)
                 pause_time = random.uniform(2, 5)
-                time.sleep(min(pause_time, end_time - time.time()))
+                sleep_duration = min(pause_time, end_time - time.time())
+                
+                if sleep_duration > 0:
+                    if self.show_progress:
+                        # Update progress bar during sleep
+                        for _ in range(int(sleep_duration)):
+                            time.sleep(1)
+                            elapsed = time.time() - start_time
+                            pbar.update(1)
+                        # Handle fractional seconds
+                        remaining_fraction = sleep_duration - int(sleep_duration)
+                        if remaining_fraction > 0:
+                            time.sleep(remaining_fraction)
+                    else:
+                        time.sleep(sleep_duration)
                 
                 if time.time() >= end_time:
                     break
@@ -275,14 +314,27 @@ class BrowserController:
             # Wait for remaining time
             remaining = end_time - time.time()
             if remaining > 0:
-                time.sleep(remaining)
+                if self.show_progress:
+                    for _ in range(int(remaining)):
+                        time.sleep(1)
+                        pbar.update(1)
+                    remaining_fraction = remaining - int(remaining)
+                    if remaining_fraction > 0:
+                        time.sleep(remaining_fraction)
+                    pbar.close()
+                else:
+                    time.sleep(remaining)
         
         except Exception as e:
             logger.debug(f"Behavior simulation error (non-critical): {e}")
             # Fallback to simple wait if simulation fails
             remaining = end_time - time.time()
             if remaining > 0:
-                time.sleep(remaining)
+                if self.show_progress:
+                    for _ in tqdm(range(int(remaining)), desc="Waiting (fallback)", unit="s", ncols=100, leave=False):
+                        time.sleep(1)
+                else:
+                    time.sleep(remaining)
     
     def stop(self):
         """Stop and close the browser"""
@@ -295,7 +347,6 @@ class BrowserController:
             finally:
                 self.driver = None
 
-    # Add this method to BrowserController class
     def visit_site(self, url: str, duration_seconds: int) -> dict:
         """
         High-level method to visit a site and simulate activity.
@@ -319,7 +370,9 @@ class BrowserController:
         if not self.navigate_to(url):
             result['error'] = 'Navigation failed'
         else:
-            self.simulate_user_activity(duration_seconds)
+            # Extract display name from URL for progress bar
+            url_display = url.replace('https://', '').replace('http://', '').split('/')[0]
+            self.simulate_user_activity(duration_seconds, url_display)
             result['title'] = self.get_page_title()
             result['status'] = 'success'
 

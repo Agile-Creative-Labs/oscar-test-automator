@@ -1,0 +1,48 @@
+2025-10-24 17:42:39,924 - config_loader - INFO - Loaded 8 browser categories
+2025-10-24 17:42:39,974 - __main__ - INFO - Running on Windows (Windows-10-10.0.26200-SP0)
+2025-10-24 17:42:39,974 - __main__ - INFO - ================================================================================
+2025-10-24 17:42:39,974 - __main__ - INFO - OSCAR Test Automator Starting
+2025-10-24 17:42:39,975 - __main__ - INFO - ================================================================================
+2025-10-24 17:42:39,975 - config_loader - INFO - Total testable sites: 190
+2025-10-24 17:42:39,977 - __main__ - INFO - Selected 190 sites for testing
+2025-10-24 17:42:39,977 - __main__ - INFO - Platform: Windows
+2025-10-24 17:42:39,977 - __main__ - INFO - Browser: chrome
+2025-10-24 17:42:39,978 - __main__ - INFO - Headless: False
+2025-10-24 17:42:39,978 - __main__ - INFO - Simulate Behavior: False
+2025-10-24 17:42:39,978 - __main__ - INFO - Total Duration: 30m 0s (1800s)
+2025-10-24 17:42:39,978 - __main__ - INFO - Per-site time: 1800s – 3600s (avg: 2700s)
+2025-10-24 17:42:39,978 - __main__ - INFO - Sites in rotation: 190
+2025-10-24 17:42:39,979 - __main__ - INFO - Estimated visits: ~0
+2025-10-24 17:42:39,979 - __main__ - INFO - Estimated completion: 2025-10-24 18:12:39
+2025-10-24 17:42:39,979 - __main__ - INFO - ================================================================================
+2025-10-24 17:42:39,979 - browser_controller - INFO - Initializing chrome browser on Windows (headless=False, simulate_behavior=False)
+2025-10-24 17:42:39,980 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:42:44,426 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:42:44,511 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:42:44,571 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:42:46,056 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:42:46,060 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:42:51,250 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:42:51,316 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:42:51,379 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:42:52,948 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:42:53,024 - __main__ - INFO - 
+============================================================
+2025-10-24 17:42:53,032 - __main__ - INFO - Cycle 1 - Sites: 190
+2025-10-24 17:42:53,033 - __main__ - INFO - ============================================================
+2025-10-24 17:42:53,063 - browser_controller - INFO - Navigating to https://app.friendster.com
+2025-10-24 17:42:53,738 - browser_controller - INFO - Successfully loaded https://app.friendster.com
+2025-10-24 17:46:53,520 - __main__ - INFO - 
+
+Interrupted by user (Ctrl+C)
+2025-10-24 17:46:53,521 - __main__ - WARNING - No visit results to save
+2025-10-24 17:46:53,523 - __main__ - INFO - 
+================================================================================
+2025-10-24 17:46:53,523 - __main__ - INFO - TEST SUMMARY
+2025-10-24 17:46:53,524 - __main__ - INFO - ================================================================================
+2025-10-24 17:46:53,525 - __main__ - WARNING - No visits completed
+2025-10-24 17:46:53,528 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/08ee9095d48beeaf0039807cc2fe5324
+2025-10-24 17:46:57,611 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029280B31750>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/08ee9095d48beeaf0039807cc2fe5324
+2025-10-24 17:47:01,693 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029280B315D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/08ee9095d48beeaf0039807cc2fe5324
+2025-10-24 17:47:03,731 - __main__ - INFO - 
+Test interrupted by user

@@ -1,0 +1,164 @@
+{
+  "summary": {
+    "platform": "Windows",
+    "start_time": "2025-10-24T18:11:03.360125",
+    "end_time": "2025-10-24T18:41:04.093015",
+    "total_runtime_seconds": 1800.7328901290894,
+    "total_visits": 15,
+    "successful_visits": 15,
+    "failed_visits": 0,
+    "success_rate": 100.0
+  },
+  "visits": [
+    {
+      "url": "app.friendster.com",
+      "status": "success",
+      "duration": 172.79,
+      "title": "Friendster",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:13:56.178335"
+    },
+    {
+      "url": "discord.com",
+      "status": "success",
+      "duration": 163.24,
+      "title": "Discord - Group Chat That\u2019s All Fun & Games",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:16:39.422218"
+    },
+    {
+      "url": "facebook.com",
+      "status": "success",
+      "duration": 167.93,
+      "title": "Facebook - log in or sign up",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:19:27.355317"
+    },
+    {
+      "url": "friendster.com",
+      "status": "success",
+      "duration": 66.04,
+      "title": "Friendster",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:20:33.398425"
+    },
+    {
+      "url": "instagram.com",
+      "status": "success",
+      "duration": 171.06,
+      "title": "Instagram",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:23:24.464634"
+    },
+    {
+      "url": "linkedin.com",
+      "status": "success",
+      "duration": 74.45,
+      "title": "LinkedIn: Log In or Sign Up",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:24:38.915557"
+    },
+    {
+      "url": "mastodon.social",
+      "status": "success",
+      "duration": 135.63,
+      "title": "Trending - Mastodon",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:26:54.548449"
+    },
+    {
+      "url": "messenger.com",
+      "status": "success",
+      "duration": 154.75,
+      "title": "Messenger",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:29:29.297609"
+    },
+    {
+      "url": "myspace.com",
+      "status": "success",
+      "duration": 152.34,
+      "title": "Myspace",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:32:01.634496"
+    },
+    {
+      "url": "pinaydb.org",
+      "status": "success",
+      "duration": 114.01,
+      "title": "Just a moment...",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:33:55.646267"
+    },
+    {
+      "url": "pinterest.com",
+      "status": "success",
+      "duration": 183.72,
+      "title": "Pinterest",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:36:59.366599"
+    },
+    {
+      "url": "reddit.com",
+      "status": "success",
+      "duration": 74.23,
+      "title": "",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:38:13.597757"
+    },
+    {
+      "url": "roblox.com",
+      "status": "success",
+      "duration": 81.26,
+      "title": "Roblox",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:39:34.860398"
+    },
+    {
+      "url": "snapchat.com",
+      "status": "success",
+      "duration": 74.98,
+      "title": "Snapchat - Say It In A Snap",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:40:49.840545"
+    },
+    {
+      "url": "threads.net",
+      "status": "success",
+      "duration": 14.25,
+      "title": "Threads",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T18:41:04.092016"
+    }
+  ]
+}

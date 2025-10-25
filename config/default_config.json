@@ -1,0 +1,170 @@
+{
+    "browser_categories": {
+        "Social Media": [
+            "app.friendster.com",
+            "discord.com",
+            "pinterest.com",
+            "facebook.com",
+            "myspace.com"    
+        ],
+        "Entertainment/Media": [
+            "youtube.com",
+            "netflix.com",
+            "spotify.com",
+            "twitch.tv",
+            "amazon.com"
+        ],
+        "News/Information": [
+            "yahoo.com",
+            "apple.com",
+            "bbc.com",
+            "bing.com",
+            "blogger.com"
+        ],
+        "Development": [
+            "github.com",
+            "anthropic.com",
+            "grammarly.com",
+            "arxiv.org",
+            "figma.com",
+            "bitbucket.org",
+            "kaggle.com",
+            "leetcode.com",
+            "netlify.com",
+            "nodejs.org",
+            "docker.com",
+            "dribbble.com",
+            "npmjs.com",
+            "godaddy.com",
+            "reactjs.org"
+        ],
+        "Communication": [
+            "asana.com",
+            "calendar.google.com",
+            "gmail.com",
+            "linear.app",
+            "mail.google.com"
+        ],
+        "Browser Internal": [
+            "browser_internal",
+            "browser_new_tab",
+            "chrome_extension",
+            "chrome_internal",
+            "edge_internal",
+            "firefox_extension",
+            "firefox_internal"
+        ],
+        "System/Security": [
+            "loginwindow", "screensaver", "lock_screen", "system_security"
+        ],
+        "Others": [
+            "lazada.com.ph",
+            "pfpmaker.com",
+            "temu.com"
+        ]
+    },
+    "app_categories": {
+        "Web Browsers": [
+            "chrome", "firefox", "arc", "safari", "edge", "brave", "opera"
+        ],
+        "Social": [
+            "messenger", "whatsapp", "telegram", "viber", "messages", "discord",
+            "slack", "teams", "zoom" ,"solitaire"
+        ],
+        "Streaming/Media": [
+            "spotify", "netflix", "prime video", "youtube", "twitch", "soundcloud","vlc"
+        ],
+        "Productivity": [
+            "1password",
+            "adobe",
+            "alfred",
+            "amphetamine",
+            "android studio",
+            "calendar",
+            "cleanmymacx",
+            "code",
+            "dropbox",
+            "duolingo",
+            "excel",
+            "fantastical",
+            "finalcutpro",
+            "intellij",
+            "keynote",
+            "libreoffice",
+            "mail",
+            "magnet",
+            "microsoft office",
+            "outlook",
+            "notes",
+            "notion",
+            "obsidian",
+            "pages",
+            "pixelmator",
+            "powerpoint",
+            "pycharm",
+            "roam",
+            "stickies",
+            "sublime text",
+            "textedit",
+            "vscode",
+            "word",
+            "xcode"
+        ],
+        "Utilities": [
+            "activity monitor",
+            "archive utility",
+            "calculator",
+            "clock",
+            "cmd",
+            "coconutBattery",
+            "contacts",
+            "docker",
+            "file explorer",
+            "finder",
+            "git",
+            "image capture",
+            "iterm",
+            "pdf editor",
+            "postman",
+            "powershell",
+            "preview",
+            "quicktime",
+            "sharex",
+            "snipping tool",
+            "task manager",
+            "terminal",
+            "the archiver",
+            "windows scan"
+        ],
+        "System/Security": [
+            "coreaudiod",
+            "face id",
+            "keychain",
+            "lock screen",
+            "loginwindow",
+            "screen saver",
+            "screensaver",
+            "security",
+            "system preferences",
+            "touch id",
+            "windowserver"
+        ],
+        "Others": []
+    },
+    "work_schedule": {
+        "work_days": [0, 1, 2, 3, 4],
+        "start_hour": 8,
+        "end_hour": 18,
+        "timezone": "UTC"
+    },
+    "feature_weights": {
+        "domain_weight": 1.0,
+        "app_weight": 1.0,
+        "time_weight": 0.5
+    },
+    "model_settings": {
+        "n_estimators": 100,
+        "random_state": 42,
+        "max_depth": null
+    }
+}

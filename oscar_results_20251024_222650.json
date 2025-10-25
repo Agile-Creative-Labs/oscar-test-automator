@@ -1,0 +1,34 @@
+{
+  "summary": {
+    "platform": "Windows",
+    "start_time": "2025-10-24T22:21:44.544181",
+    "end_time": "2025-10-24T22:26:50.139042",
+    "total_runtime_seconds": 305.59486079216003,
+    "total_visits": 2,
+    "successful_visits": 2,
+    "failed_visits": 0,
+    "success_rate": 100.0
+  },
+  "visits": [
+    {
+      "url": "app.friendster.com",
+      "status": "success",
+      "duration": 109.46,
+      "title": "Friendster",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T22:23:34.116207"
+    },
+    {
+      "url": "discord.com",
+      "status": "success",
+      "duration": 183.9,
+      "title": "Discord - Group Chat That\u2019s All Fun & Games",
+      "error": null,
+      "category": "Social Media",
+      "cycle": 1,
+      "timestamp": "2025-10-24T22:26:38.018017"
+    }
+  ]
+}

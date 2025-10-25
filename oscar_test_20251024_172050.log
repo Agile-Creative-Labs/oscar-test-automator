@@ -1,0 +1,40 @@
+2025-10-24 17:20:50,007 - config_loader - INFO - Loaded 8 browser categories
+2025-10-24 17:20:50,007 - __main__ - INFO - ============================================================
+2025-10-24 17:20:50,007 - __main__ - INFO - OSCAR Test Automator Starting
+2025-10-24 17:20:50,008 - __main__ - INFO - ============================================================
+2025-10-24 17:20:50,008 - config_loader - INFO - Total testable sites: 190
+2025-10-24 17:20:50,008 - __main__ - INFO - Selected 190 sites for testing
+2025-10-24 17:20:50,008 - __main__ - INFO - Browser: chrome
+2025-10-24 17:20:50,012 - __main__ - INFO - Headless: False
+2025-10-24 17:20:50,012 - __main__ - INFO - Total Duration: 1800s (~30m)
+2025-10-24 17:20:50,013 - __main__ - INFO - Per-site time: 3600s – 10800s
+2025-10-24 17:20:50,013 - __main__ - INFO - Sites: 190
+2025-10-24 17:20:50,013 - __main__ - INFO - ============================================================
+2025-10-24 17:20:50,013 - browser_controller - INFO - Initializing chrome browser (headless=False, simulate_behavior=False)
+2025-10-24 17:20:50,014 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:20:54,536 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:20:54,607 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:20:54,681 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:20:56,090 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:20:56,092 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:21:01,729 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:21:01,789 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:21:01,849 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:21:03,189 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:21:03,194 - __main__ - INFO - 
+--- Cycle 1 ---
+2025-10-24 17:21:03,195 - browser_controller - INFO - Navigating to https://app.friendster.com
+2025-10-24 17:21:03,749 - browser_controller - INFO - Successfully loaded https://app.friendster.com
+2025-10-24 17:26:42,120 - __main__ - INFO - Interrupted by user
+2025-10-24 17:26:42,121 - __main__ - INFO - 
+============================================================
+2025-10-24 17:26:42,122 - __main__ - INFO - TEST SUMMARY
+2025-10-24 17:26:42,122 - __main__ - INFO - ============================================================
+2025-10-24 17:26:42,123 - __main__ - INFO - Runtime: 338.9s (5.6m)
+2025-10-24 17:26:42,123 - __main__ - INFO - Visits: 0 (Success: 0, Failed: 0)
+2025-10-24 17:26:42,126 - __main__ - INFO - JSON results: oscar_results_20251024_172642.json
+2025-10-24 17:26:42,126 - __main__ - INFO - ============================================================
+2025-10-24 17:26:42,131 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/c829177434bca7b84e649108533f03e4
+2025-10-24 17:26:46,209 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000118CC44C880>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c829177434bca7b84e649108533f03e4
+2025-10-24 17:26:50,292 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000118CC44CA30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c829177434bca7b84e649108533f03e4
+2025-10-24 17:26:54,336 - browser_controller - INFO - Chrome browser closed

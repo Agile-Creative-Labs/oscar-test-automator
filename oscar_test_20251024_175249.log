@@ -1,0 +1,57 @@
+2025-10-24 17:52:49,857 - config_loader - INFO - Loaded 8 browser categories
+2025-10-24 17:52:49,898 - __main__ - INFO - Running on Windows (Windows-10-10.0.26200-SP0)
+2025-10-24 17:52:49,899 - __main__ - INFO - ================================================================================
+2025-10-24 17:52:49,899 - __main__ - INFO - OSCAR Test Automator Starting
+2025-10-24 17:52:49,899 - __main__ - INFO - ================================================================================
+2025-10-24 17:52:49,900 - config_loader - INFO - Total testable sites: 190
+2025-10-24 17:52:49,901 - __main__ - INFO - Selected 190 sites for testing
+2025-10-24 17:52:49,901 - __main__ - INFO - Platform: Windows
+2025-10-24 17:52:49,901 - __main__ - INFO - Browser: chrome
+2025-10-24 17:52:49,901 - __main__ - INFO - Headless: False
+2025-10-24 17:52:49,901 - __main__ - INFO - Simulate Behavior: False
+2025-10-24 17:52:49,902 - __main__ - INFO - Total Duration: 30m 0s (1800s)
+2025-10-24 17:52:49,902 - __main__ - INFO - Per-site time: 120s – 300s (avg: 210s)
+2025-10-24 17:52:49,902 - __main__ - INFO - Sites in rotation: 190
+2025-10-24 17:52:49,902 - __main__ - INFO - Estimated visits: ~1520
+2025-10-24 17:52:49,902 - __main__ - INFO - Estimated completion: 2025-10-24 18:22:49
+2025-10-24 17:52:49,903 - __main__ - INFO - ================================================================================
+2025-10-24 17:52:49,903 - browser_controller - INFO - Initializing chrome browser on Windows (headless=False, simulate_behavior=False)
+2025-10-24 17:52:49,903 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:52:54,482 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:52:54,588 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:52:54,651 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:52:56,195 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:52:56,196 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:53:00,718 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:53:00,781 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:53:00,845 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:53:02,521 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:53:02,544 - __main__ - INFO - 
+============================================================
+2025-10-24 17:53:02,544 - __main__ - INFO - Cycle 1 - Sites: 190
+2025-10-24 17:53:02,544 - __main__ - INFO - ============================================================
+2025-10-24 17:53:02,546 - browser_controller - INFO - Navigating to https://app.friendster.com
+2025-10-24 17:53:03,171 - browser_controller - INFO - Successfully loaded https://app.friendster.com
+2025-10-24 17:55:14,992 - browser_controller - INFO - Navigating to https://discord.com
+2025-10-24 17:55:19,281 - browser_controller - INFO - Successfully loaded https://discord.com
+2025-10-24 17:58:40,657 - __main__ - INFO - 
+
+Interrupted by user (Ctrl+C)
+2025-10-24 17:58:40,661 - __main__ - INFO - 
+================================================================================
+2025-10-24 17:58:40,661 - __main__ - INFO - TEST SUMMARY
+2025-10-24 17:58:40,661 - __main__ - INFO - ================================================================================
+2025-10-24 17:58:40,661 - __main__ - INFO - Platform: Windows
+2025-10-24 17:58:40,663 - __main__ - INFO - Runtime: 5m 38s (338.1s)
+2025-10-24 17:58:40,663 - __main__ - INFO - Start: 2025-10-24 17:53:02
+2025-10-24 17:58:40,663 - __main__ - INFO - End: 2025-10-24 17:58:40
+2025-10-24 17:58:40,664 - __main__ - INFO - 
+Total Visits: 1
+2025-10-24 17:58:40,666 - __main__ - INFO - 
+Category Breakdown:
+2025-10-24 17:58:40,667 - __main__ - INFO -   Social Media: 1 visits
+2025-10-24 17:58:40,671 - __main__ - INFO - ================================================================================
+2025-10-24 17:58:44,740 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027A52BFF1C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/35fef8e8485c6f25c4b472f042ff3877
+2025-10-24 17:58:48,802 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027A534BDED0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/35fef8e8485c6f25c4b472f042ff3877
+2025-10-24 17:58:52,870 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027A534BE080>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/35fef8e8485c6f25c4b472f042ff3877
+2025-10-24 17:58:56,919 - browser_controller - INFO - Chrome browser closed

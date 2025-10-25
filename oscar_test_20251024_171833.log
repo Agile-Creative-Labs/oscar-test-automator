@@ -1,0 +1,41 @@
+2025-10-24 17:18:33,646 - config_loader - INFO - Loaded 8 browser categories
+2025-10-24 17:18:33,646 - __main__ - INFO - ============================================================
+2025-10-24 17:18:33,647 - __main__ - INFO - OSCAR Test Automator Starting
+2025-10-24 17:18:33,647 - __main__ - INFO - ============================================================
+2025-10-24 17:18:33,648 - config_loader - INFO - Total testable sites: 190
+2025-10-24 17:18:33,649 - __main__ - INFO - Selected 190 sites for testing
+2025-10-24 17:18:33,649 - __main__ - INFO - Browser: chrome
+2025-10-24 17:18:33,652 - __main__ - INFO - Headless: False
+2025-10-24 17:18:33,652 - __main__ - INFO - Total Duration: 1800s (~30m)
+2025-10-24 17:18:33,652 - __main__ - INFO - Per-site time: 3600s – 10800s
+2025-10-24 17:18:33,652 - __main__ - INFO - Sites: 190
+2025-10-24 17:18:33,652 - __main__ - INFO - ============================================================
+2025-10-24 17:18:33,653 - browser_controller - INFO - Initializing chrome browser (headless=False, simulate_behavior=False)
+2025-10-24 17:18:33,653 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:18:37,955 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:18:38,042 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:18:38,096 - WDM - INFO - There is no [win64] chromedriver "141.0.7390.122" for browser google-chrome "141.0.7390" in cache
+2025-10-24 17:18:38,096 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:18:38,287 - WDM - INFO - WebDriver version 141.0.7390.122 selected
+2025-10-24 17:18:38,295 - WDM - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.122/win32/chromedriver-win32.zip
+2025-10-24 17:18:38,295 - WDM - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.122/win32/chromedriver-win32.zip
+2025-10-24 17:18:38,379 - WDM - INFO - Driver downloading response is 200
+2025-10-24 17:18:38,715 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:18:39,708 - WDM - INFO - Driver has been saved in cache [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122]
+2025-10-24 17:18:42,262 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:18:42,264 - WDM - INFO - ====== WebDriver manager ======
+2025-10-24 17:18:46,917 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:18:46,989 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-10-24 17:18:47,053 - WDM - INFO - Driver [C:\Users\pc\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-24 17:18:48,596 - browser_controller - INFO - Chrome browser started successfully
+2025-10-24 17:18:48,606 - __main__ - INFO - 
+--- Cycle 1 ---
+2025-10-24 17:18:48,618 - __main__ - INFO - 
+============================================================
+2025-10-24 17:18:48,618 - __main__ - INFO - TEST SUMMARY
+2025-10-24 17:18:48,619 - __main__ - INFO - ============================================================
+2025-10-24 17:18:48,619 - __main__ - INFO - Runtime: 0.0s (0.0m)
+2025-10-24 17:18:48,629 - __main__ - INFO - Visits: 0 (Success: 0, Failed: 0)
+2025-10-24 17:18:48,639 - __main__ - INFO - JSON results: oscar_results_20251024_171848.json
+2025-10-24 17:18:48,664 - __main__ - INFO - ============================================================
+2025-10-24 17:18:54,627 - browser_controller - INFO - Chrome browser closed
